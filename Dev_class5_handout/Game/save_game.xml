@@ -1,0 +1,12 @@
+<!-- Save game for the game -->
+
+<game_state>
+
+  <renderer>
+    <camera x="100" y="0"/>
+  </renderer>
+  <position>
+    <position x="30" y="258"/>
+    <start x="30" y="258"/>
+  </position>
+</game_state>
