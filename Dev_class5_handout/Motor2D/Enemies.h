@@ -6,6 +6,7 @@
 #include	"p2Point.h"
 #include	"j1Textures.h"
 #include	"Animation.h"
+#include	"j1Player.h"
 
 #define GRAVITY 0.02f 
 #define SPEED_X 1.0f
@@ -46,11 +47,11 @@ private:
 	uint height = 0;
 	SDL_Texture* graphics = nullptr;
 	fPoint speed;
-	STATE state = NO_STATE;
+	STATE state_Enemy = NO_STATE;
 	Animation* current_animation = nullptr;
 
-	STATE last_state = NO_STATE;
-	STATE last_state_2 = NO_STATE;
+	STATE last_state_Enemy = NO_STATE;
+	STATE last_state_2_Enemy = NO_STATE;
 	Animation idle_right;
 	Animation walk_right;
 	Animation jump_right;

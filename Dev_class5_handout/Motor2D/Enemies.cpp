@@ -7,6 +7,10 @@
 #include "j1Map.h"
 #include "j1Collision.h"
 #include "j1Audio.h"
+#include "j1Player.h"
+
+#include "SDL_image/include/SDL_image.h"
+#pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
 
 
 
@@ -129,10 +133,10 @@ bool Enemies::Start()
 
 	LOG("starting player");
 	bool ret = true;
-	graphics = App->tex->Load("maps/PlayerSprites.png");
+	graphics = App->tex->Load("maps/Enemy_Sprites.png");
 	jumpfx = App->audio->LoadFx("audio/fx/jump.wav");
 
-	state = IDLE_RIGHT;
+	state_Enemy = IDLE_RIGHT;
 
 	enemie_position.x = starting_x.as_float();
 	enemie_position.y = starting_y.as_float();
@@ -183,7 +187,7 @@ bool Enemies::Jumping() {
 
 bool Enemies::CleanUp()
 {
-	LOG("Destroying player");
+	LOG("Destroying enemies");
 	bool ret = true;
 	return ret;
 }
