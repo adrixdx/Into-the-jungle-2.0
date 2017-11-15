@@ -10,7 +10,7 @@
 
 #define GRAVITY 0.02f 
 #define SPEED_X 1.0f
-#define SPEED_Y 0.5f
+#define SPEED_Y 0.25f
 
 
 struct SDL_texture;

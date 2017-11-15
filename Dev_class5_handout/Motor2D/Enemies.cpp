@@ -8,6 +8,7 @@
 #include "j1Collision.h"
 #include "j1Audio.h"
 #include "j1Player.h"
+#include "j1Input.h"
 
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -17,85 +18,26 @@
 Enemies::Enemies() : j1Module()
 {
 
-	/*idle_right.PushBack({ 1,39,20,35 });
-	idle_right.PushBack({ 21,39,20,35 });
-	idle_right.PushBack({ 42,39,20,35 });
-	idle_right.PushBack({ 63,39,20,35 });
-	idle_right.PushBack({ 84,39,20,35 });
-	idle_right.PushBack({ 105,39,20,35 });
-	idle_right.PushBack({ 126,39,20,35 });
-	idle_right.PushBack({ 147,39,20,35 });
-	idle_right.PushBack({ 168,39,20,35 });
-	idle_right.PushBack({ 189,39,20,35 });
-	idle_right.PushBack({ 210,39,20,35 });
-	idle_right.PushBack({ 231,39,20,35 });
-	idle_right.speed = 0.05f;
+	idle_right_enemy.PushBack({ 1,1,100,100 });
+	idle_right_enemy.PushBack({ 21,39,20,35 });
+	idle_right_enemy.PushBack({ 42,39,20,35 });
+	idle_right_enemy.speed = 0.05f;
 
-	idle_left.PushBack({ 1,157,20,35 });
-	idle_left.PushBack({ 21,157,20,35 });
-	idle_left.PushBack({ 42,157,20,35 });
-	idle_left.PushBack({ 63,157,20,35 });
-	idle_left.PushBack({ 84,157,20,35 });
-	idle_left.PushBack({ 105,157,20,35 });
-	idle_left.PushBack({ 126,157,20,35 });
-	idle_left.PushBack({ 147,157,20,35 });
-	idle_left.PushBack({ 168,157,20,35 });
-	idle_left.PushBack({ 189,157,20,35 });
-	idle_left.PushBack({ 210,157,20,35 });
-	idle_left.PushBack({ 231,157,20,35 });
-	idle_left.speed = 0.05f;
+	idle_left_enemy.PushBack({ 1,157,20,35 });
+	idle_left_enemy.PushBack({ 21,157,20,35 });
+	idle_left_enemy.PushBack({ 42,157,20,35 });
+	idle_left_enemy.speed = 0.05f;
 
-	walk_right.PushBack({ 1,1,22,33 });
-	walk_right.PushBack({ 23,1,19,33 });
-	walk_right.PushBack({ 43,1,16,33 });
-	walk_right.PushBack({ 60,1,20,33 });
-	walk_right.PushBack({ 80,1,20,33 });
-	walk_right.PushBack({ 100,1,19,33 });
-	walk_right.PushBack({ 119,1,20,33 });
-	walk_right.PushBack({ 139,1,23,33 });
-	walk_right.speed = 0.05f;
+	walk_right_enemy.PushBack({ 1,1,22,33 });
+	walk_right_enemy.PushBack({ 23,1,19,33 });
+	walk_right_enemy.PushBack({ 43,1,16,33 });
+	walk_right_enemy.speed = 0.05f;
 
-	walk_left.PushBack({ 1,118,22,33 });
-	walk_left.PushBack({ 23,118,19,33 });
-	walk_left.PushBack({ 43,118,16,33 });
-	walk_left.PushBack({ 60,118,20,33 });
-	walk_left.PushBack({ 80,118,20,33 });
-	walk_left.PushBack({ 100,118,19,33 });
-	walk_left.PushBack({ 119,118,20,33 });
-	walk_left.PushBack({ 139,118,23,33 });
-	walk_left.speed = 0.05f;
+	walk_left_enemy.PushBack({ 1,118,22,33 });
+	walk_left_enemy.PushBack({ 23,118,19,33 });
+	walk_left_enemy.PushBack({ 43,118,16,33 });
+	walk_left_enemy.speed = 0.05f;
 
-	jump_right.PushBack({ 162,1,19,37 });
-	jump_right.PushBack({ 203,1,19,37 });
-	jump_right.PushBack({ 223,1,21,37 });
-	jump_right.PushBack({ 182,1,21,37 });
-	jump_right.speed = 0.05f;
-	jump_right.loop = false;
-
-	jump_left.PushBack({ 162,118,19,37 });
-	jump_left.PushBack({ 203,118,19,37 });
-	jump_left.PushBack({ 223,118,21,37 });
-	jump_left.PushBack({ 182,118,21,37 });
-	jump_left.speed = 0.05f;
-	jump_left.loop = false;
-
-	ledge_right.PushBack({ 1,76,21,41 });
-	ledge_right.PushBack({ 22,76,20,41 });
-	ledge_right.PushBack({ 42,76,19,41 });
-	ledge_right.PushBack({ 61,76,20,41 });
-	ledge_right.PushBack({ 81,76,20,41 });
-	ledge_right.PushBack({ 101,76,20,41 });
-	ledge_right.speed = 0.05f;
-	ledge_right.loop = false;
-
-	ledge_left.PushBack({ 1,194,21,41 });
-	ledge_left.PushBack({ 22,194,20,41 });
-	ledge_left.PushBack({ 42,194,19,41 });
-	ledge_left.PushBack({ 61,194,20,41 });
-	ledge_left.PushBack({ 81,194,20,41 });
-	ledge_left.PushBack({ 101,194,20,41 });
-	ledge_left.speed = 0.05f;
-	ledge_left.loop = false;*/
 
 }
 
@@ -134,9 +76,8 @@ bool Enemies::Start()
 	LOG("starting player");
 	bool ret = true;
 	graphics = App->tex->Load("maps/Enemy_Sprites.png");
-	jumpfx = App->audio->LoadFx("audio/fx/jump.wav");
 
-	state_Enemy = IDLE_RIGHT;
+	STATEENEMY state_Enemy = IDLE_RIGHT_ENEMY;
 
 	enemie_position.x = starting_x.as_float();
 	enemie_position.y = starting_y.as_float();
@@ -157,32 +98,52 @@ bool Enemies::Update()
 
 bool Enemies::PostUpdate()
 {
-	
+	currentTime = SDL_GetTicks();
+
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) {
+		SavePosition();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+		LoadPosition();
+		enemy_load = true;
+		STATEENEMY state_Enemy = IDLE_RIGHT_ENEMY;
+		touching_floor = false;
+		speed.y = 0;
+		speed.x = 0;
+
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) {
+		enemie_position.x = starting_x.as_float();
+		enemie_position.y = starting_y.as_float();
+		enemy_load = true;
+		STATEENEMY state_Enemy = IDLE_RIGHT_ENEMY;
+		touching_floor = false;
+		speed.y = 0;
+		speed.x = 0;
+	}
+
+	if (touching_floor == false) {
+		speed.y += GRAVITY;
+	}
+
+	else// if (playerpos.y >= 400) 
+	{
+		speed.y = 0;
+		onGround = true;
+	}
+
+	enemie_position.x += speed.x;
+	enemie_position.y += speed.y;
+	speed.x = 0;
+	enemie_collider->SetPos(enemie_position.x, enemie_position.y);
+	Draw();
 
 	return true;
 }
 
-bool Enemies::Jumping() {
-	bool ret = true;
-
-	if (onGround)
-	{
-		jump_right.Reset();
-		jump_left.Reset();
-		jumping = true;
-		speed.y = -2.0f;
-		onGround = false;
-		enemie_position.y -= 5;
-		touching_floor = false;
-		App->audio->PlayFx(jumpfx);
-	}
-
-	if (speed.y < -1.5f) {
-		speed.y = -1.5f;
-	}
-
-	return ret;
-}
 
 
 bool Enemies::CleanUp()
@@ -207,58 +168,39 @@ bool Enemies::Load(pugi::xml_node& node)
 
 void Enemies::Draw()
 {
-	/*switch (state)
+	switch (state_Enemy)
 	{
 	case IDLE_RIGHT:
-		current_animation = &idle_right;
+		current_animation = &idle_right_enemy;
 		break;
 
 	case IDLE_LEFT:
-		current_animation = &idle_left;
+		current_animation = &idle_left_enemy;
 		break;
 
 	case WALK_RIGHT:
-		current_animation = &walk_right;
+		current_animation = &walk_right_enemy;
 		break;
 
 	case WALK_LEFT:
-		current_animation = &walk_left;
+		current_animation = &walk_left_enemy;
 		break;
 
-	case JUMP_RIGHT:
-		current_animation = &jump_right;
-		break;
 
-	case JUMP_LEFT:
-		current_animation = &jump_left;
-		break;
-	case LEDGE_RIGHT:
-		current_animation = &ledge_right;
-		break;
-	case LEDGE_LEFT:
-		current_animation = &ledge_left;
-		break;
 
 	}
 
 
-	//so jump animation doesnt get stuck if we just jump and not press anything else after
-	if (current_animation->Finished() && current_animation == &jump_right && touching_floor) {
-		current_animation = &idle_right;
-	}
-	else if (current_animation->Finished() && current_animation == &jump_left && touching_floor) {
-		current_animation = &idle_left;
-	}
 
 
 	SDL_Rect render = current_animation->GetCurrentFrame();
-	App->render->Blit(graphics, playerpos.x, playerpos.y, &render);
+	App->render->Blit(graphics, enemie_position.x, enemie_position.y, &render);
 
-	if (last_state != last_state_2)
-		last_state_2 = last_state;
+	if (last_state_Enemy != last_state_2_Enemy)
+		last_state_2_Enemy = last_state_Enemy;
 
-	if (last_state != state)
-		last_state = state;
+	if (last_state_Enemy != state_Enemy)
+		last_state_Enemy = state_Enemy;
 	//LOG("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");*/
 
 

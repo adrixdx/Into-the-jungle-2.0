@@ -1,6 +1,7 @@
 #ifndef __ENEMIES_H__
 #define __ENEMIES_H__
 
+#include	"PugiXml/src/pugixml.hpp"
 #include	"j1Module.h"
 #include	"p2List.h"
 #include	"p2Point.h"
@@ -13,14 +14,12 @@
 #define SPEED_Y 0.5f
 
 
-enum STATE {
-	IDLE_RIGHT,
-	IDLE_LEFT,
-	WALK_RIGHT,
-	WALK_LEFT,
-	JUMP_RIGHT,
-	JUMP_LEFT,
-	NO_STATE,
+enum STATEENEMY {
+	IDLE_RIGHT_ENEMY,
+	IDLE_LEFT_ENEMY,
+	WALK_RIGHT_ENEMY,
+	WALK_LEFT_ENEMY,
+	NO_STATE_ENEMY,
 };
 
 class Enemies :public j1Module
@@ -39,7 +38,6 @@ public:
 	void SavePosition();
 
 	void Draw();
-	bool Jumping();
 	void OnCollision(Collider* c1, Collider* c2);
 private:
 
@@ -47,21 +45,19 @@ private:
 	uint height = 0;
 	SDL_Texture* graphics = nullptr;
 	fPoint speed;
-	STATE state_Enemy = NO_STATE;
+	STATEENEMY state_Enemy = NO_STATE_ENEMY;
 	Animation* current_animation = nullptr;
 
-	STATE last_state_Enemy = NO_STATE;
-	STATE last_state_2_Enemy = NO_STATE;
-	Animation idle_right;
-	Animation walk_right;
-	Animation jump_right;
-	Animation idle_left;
-	Animation walk_left;
-	Animation jump_left;
+	STATEENEMY last_state_Enemy = NO_STATE_ENEMY;
+	STATEENEMY last_state_2_Enemy = NO_STATE_ENEMY;
+	Animation idle_right_enemy;
+	Animation walk_right_enemy;
+	Animation idle_left_enemy;
+	Animation walk_left_enemy;
+
 	
 
 	uint lastTime = 0;
-	bool jumping = false;
 	bool onGround = true;
 
 
@@ -71,8 +67,6 @@ private:
 	pugi::xml_node positionnode;
 	pugi::xml_document save_file;
 
-	bool on_ledge_right = false;
-	bool on_ledge_left = false;
 	uint jumpfx;
 public:
 
@@ -81,6 +75,7 @@ public:
 	Collider* enemie_collider;
 	bool touching_floor = false;
 	uint currentTime = 0;
+	bool enemy_load = false;
 
 	pugi::xml_attribute position_attr_x;
 	pugi::xml_attribute position_attr_y;
