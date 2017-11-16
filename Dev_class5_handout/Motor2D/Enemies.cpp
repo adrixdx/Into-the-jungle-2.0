@@ -224,7 +224,44 @@ void Enemies::SavePosition() {
 }
 
 
-void Enemies::OnCollision(Collider* c1, Collider* c2) {
+void Enemies::OnCollision(Collider* e1, Collider* e2) {
 
-	
+	if (e2->type == COLLIDER_FLOOR)
+	{
+
+
+		if (e1->rect.y < e2->rect.y + e2->rect.h && e1->rect.y + 3 > e2->rect.y + e2->rect.h)
+
+		{
+			enemie_position.y = enemie_position.y + 1;
+			speed.y = GRAVITY;
+
+
+
+		}
+		else if (e1->rect.y + e1->rect.h > e2->rect.y && e1->rect.y + e1->rect.h - 3 < e2->rect.y)
+
+		{
+
+			touching_floor = true;
+			if ((e1->rect.x + 5 >= e2->rect.x + e2->rect.w && e1->rect.x - 5 <= e2->rect.x + e2->rect.w)
+				|| (e1->rect.x + e1->rect.w - 5 <= e2->rect.x && e1->rect.x + e1->rect.w + 5 >= e2->rect.x)) {
+				touching_floor = false;
+
+			}
+
+		}
+
+
+		else if (e1->rect.x + e1->rect.w > e2->rect.x && e1->rect.x + e1->rect.w - 3 < e2->rect.x)
+		{
+			enemie_position.x = enemie_position.x - 1;
+
+		}
+		else if (e1->rect.x < e2->rect.x + e2->rect.w && e1->rect.x + 3 > e2->rect.x + e2->rect.w)
+		{
+			enemie_position.x = enemie_position.x + 1;
+
+		}
+	}
 }
